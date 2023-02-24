@@ -1,49 +1,50 @@
-import { ConnectWallet } from "@thirdweb-dev/react";
-import "./styles/Home.css";
+import React from 'react'
+import {Route, Routes} from 'react-router-dom'
+import {Home, Forum, CampaignDetails, PostPage, YourCampaign, Profile, Streaming, Supporter} from './pages'
+import {Signup, Signin, } from './authentication'
+import {VideoDetail} from './video'
 
-export default function Home() {
+
+import {Post,} from './components'
+import "./index.css"
+
+import { AuthContextProvider } from './context/AuthContext'
+import { PostContextProvider } from './context/PostContext'
+import ProtectedRoute from './routeprotection/ProtectedRoute'
+
+const App = () => {
   return (
-    <div className="container">
-      <main className="main">
-        <h1 className="title">
-          Welcome to <a href="https://thirdweb.com/">thirdweb</a>!
-        </h1>
+    <main className="bg-white min-h-screen flex max-w-[1500px] mx-auto">
+    
+    <AuthContextProvider>
+    <PostContextProvider>
+    <Routes>
+     <Route path="/Signup" element={<Signup/>}/>
+     <Route path="/Signin" element={<Signin/>}/>
+     <Route path="/" element={<Home/>}/>
+     <Route path="/Forum" element={<Forum/>}/>
+     <Route path="/Forum/:id" element={<PostPage/>}/>
+     <Route path="/Your_Campaign" element={<YourCampaign/>}/>
+     <Route path="/Campaign-details/:id" element={<CampaignDetails/>}/>
+     <Route path="/Profile" element={<Profile/>}/>
+     <Route path="/Profile/:id" element={<Profile/>}/>
+     <Route path="/Streaming/:id" element={<VideoDetail/>}/>
+     <Route path="/Streaming" element={<Streaming/>}/>
+     <Route path="/Supporter" element={<Supporter/>}/>
+     {/* <Route path="/Post/:id" element={<Post/>}/> */}
+     
+     
+     
+    </Routes>
+    </PostContextProvider>
+    </AuthContextProvider>
+    
+ 
 
-        <p className="description">
-          Get started by configuring your desired network in{" "}
-          <code className="code">src/main.jsx</code>, then modify the{" "}
-          <code className="code">src/App.jsx</code> file!
-        </p>
-
-        <div className="connect">
-          <ConnectWallet />
-        </div>
-
-        <div className="grid">
-          <a href="https://portal.thirdweb.com/" className="card">
-            <h2>Portal &rarr;</h2>
-            <p>
-              Guides, references and resources that will help you build with
-              thirdweb.
-            </p>
-          </a>
-
-          <a href="https://thirdweb.com/dashboard" className="card">
-            <h2>Dashboard &rarr;</h2>
-            <p>
-              Deploy, configure and manage your smart contracts from the
-              dashboard.
-            </p>
-          </a>
-
-          <a href="https://portal.thirdweb.com/templates" className="card">
-            <h2>Templates &rarr;</h2>
-            <p>
-              Discover and clone template projects showcasing thirdweb features.
-            </p>
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+      {/* modal */}
+    </main>
+  )
 }
+
+export default App
+
